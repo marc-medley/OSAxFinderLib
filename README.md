@@ -1,6 +1,6 @@
 # OSAxFinderLib
 
-_The `OSAxFinderLib` Swift package which provides both a library and a command line tool for fetching the URLs of the currently selected items in the macOS Finder._
+_The `OSAxFinderLib` Swift package provides both a library and a command line tool for fetching the URLs of the currently selected items in the macOS Finder._
 
 Motivation: The current macOS Swift APIs (e.g. `FileManager` and `NSWorkspace`) do not provide access to the currently selected Finder URLs.
 
