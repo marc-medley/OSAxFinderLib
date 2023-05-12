@@ -1,0 +1,30 @@
+###################################
+### Local Items: Not Checked In ###
+###################################
+*__LOCAL
+
+###################
+### Apple macOS ###
+###################
+.DS_Store
+
+### SourceTree "Iconr" has a carriage return aka "Icon\r" or "Icon\x0d"
+### find . -name Icon$'\u000d' -print
+### case sensitive, single character wildcard
+Icon?
+
+#############################
+### Swift Package Manager ###
+#############################
+/.build
+/Packages
+/*.xcodeproj
+xcuserdata/
+DerivedData/
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+Package.resolved
+
+###################
+### LibreOffice ###
+###################
+.~lock*
