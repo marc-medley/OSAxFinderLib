@@ -30,8 +30,8 @@ public final class OSAxFinder {
     
     /// Fetch the `URL` of the front Finder window. Returns nil if no window is open.
     /// - Returns: folder URL of the front window
-    public func directoryFrontWindow() -> URL? {
-        let result = runOsaScript(script: finderFrontWindowScript, removeTrailingNewline: true)
+    public func directoryFrontWindow(printStdio: Bool = false) -> URL? {
+        let result = runOsaScript(script: finderFrontWindowScript, removeTrailingNewline: true, printStdio: printStdio)
         let output = result.stdout
         if output.isEmpty == false {
             return URL(fileURLWithPath: output, isDirectory: true)
@@ -46,10 +46,13 @@ public final class OSAxFinder {
 
     /// Fetch the `URL` of the selected files and folders which have one of the specified extensions. The extensions are provide without a `.` dot. For example: `["jpg", "png"]`
     /// - Returns: (dirs: [URL], files: [URL]) tuple of folders and files
-    public func selectedFileUrls(extensions: [String] = []) -> [URL] {
+    public func selectedFileUrls(extensions: [String] = [], printStdio: Bool = false) -> [URL] {
         let extensions = extensions.map { $0.lowercased() }
         var urlList = [URL]()
-        let result = runOsaScript(script: finderSelectionScript, removeTrailingNewline: true)
+        let result = runOsaScript(script: finderSelectionScript, removeTrailingNewline: true, printStdio: printStdio)
+        if result.stdout.isEmpty {
+            return urlList
+        }
         let pathList: [String] = result.stdout.components(separatedBy: "\n")
         for path in pathList {
             if path.hasSuffix("/") == false {
@@ -64,9 +67,9 @@ public final class OSAxFinder {
     }
     
     /// - Returns: all selected folders
-    public func selectedFolderUrls() -> [URL] {
+    public func selectedFolderUrls(printStdio: Bool = false) -> [URL] {
         var urlList = [URL]()
-        let result = runOsaScript(script: finderSelectionScript, removeTrailingNewline: true)
+        let result = runOsaScript(script: finderSelectionScript, removeTrailingNewline: true, printStdio: printStdio)
         let pathList: [String] = result.stdout.components(separatedBy: "\n")
         for path in pathList {
             if path.hasSuffix("/") {
@@ -78,10 +81,10 @@ public final class OSAxFinder {
     
     /// Fetch the `URL` of the selected files and folders which have one of the specified extensions. The extensions are provide without a `.` dot. For example: `["jpg", "png"]`
     /// - Returns: (dirs: [URL], files: [URL]) tuple of folders and files
-    public func selectedUrls(extensions: [String] = []) -> (dirs: [URL], files: [URL]) {
+    public func selectedUrls(extensions: [String] = [], printStdio: Bool = false) -> (dirs: [URL], files: [URL]) {
         var urlDirsList = [URL]()
         var urlFilesList = [URL]()
-        let result = runOsaScript(script: finderSelectionScript, removeTrailingNewline: true)
+        let result = runOsaScript(script: finderSelectionScript, removeTrailingNewline: true, printStdio: printStdio)
         let pathList: [String] = result.stdout.components(separatedBy: "\n")
         for path in pathList {
             if path.hasSuffix("/") == false {
@@ -109,9 +112,9 @@ public final class OSAxFinder {
     }
     
     /// - Returns: all selected items
-    public func selectedUrls() -> [URL] {
+    public func selectedUrls(printStdio: Bool = false) -> [URL] {
         var urlList = [URL]()
-        let result = runOsaScript(script: finderSelectionScript, removeTrailingNewline: true)
+        let result = runOsaScript(script: finderSelectionScript, removeTrailingNewline: true, printStdio: printStdio)
         let pathList: [String] = result.stdout.components(separatedBy: "\n")
         for path in pathList {
             if path.hasSuffix("/") {
