@@ -8,43 +8,56 @@ import XCTest
 
 class OSAxFinderLibTests: XCTestCase {
     
-    func skipTestFindUrls() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        //XCTAssertEqual("A", "A")
+    func doSelectedFolderUrls() {
+        let osaxFinder = OSAxFinder()
+        let urlList = osaxFinder.selectedFolderUrls()
         
+        let s = """
+        ------------------------------------
+        ------- SELECTED FOLDER URLS -------
+        --- url list ---
+        \(urlList)\n
+        """
+        print(s)
+    }
+    
+    func doSelectedFileUrls() {
+        let osaxFinder = OSAxFinder()
+        let urlList = osaxFinder.selectedFileUrls()
+        
+        var s = """
+        ------------------------------------
+        -------- SELECTED FILE URLS --------
+        --- url list ---
+        \(urlList)\n
+        """
+        for url in urlList {
+            s.append("\(url.absoluteString)\n")
+        }
+        print(s)
+    }
+    
+    func dodirOfFrontWindow() {
         let osaxFinder = OSAxFinder()
         
-        print("""
-        \n------------------------------------
-        ------- SELECTED FOLDER URLS -------
-        """)
-        var urlList = osaxFinder.selectedFolderUrls(printStdio: true)
-        print("--- url list ---\n\(urlList)\n")
-        
-        print("""
-        ----------------------------------
-        ------- SELECTED FILE URLS -------
-        """)
-        urlList = osaxFinder.selectedFileUrls(printStdio: true)
-        print("--- url list ---\n\(urlList)\n")
-        for url in urlList {
-            print(url.absoluteString)
-        }
-        print("")
-        
-        print("""
+        var s = """
         ----------------------------
         ------- FRONT WINDOW -------
-        """)
-        if let urlList = osaxFinder.directoryFrontWindow(printStdio: true) {
-            print("--- url list ---\n\(urlList)\n")
+        """
+        if let urlList = osaxFinder.dirOfFrontWindow(printStdio: true) {
+            s.append("--- url list ---\n\(urlList)\n")
         } else {
-            print("--- no front window ---")
+            s.append("--- no front window ---")
         }
+        print(s)
+    }
+    
+    func testSuite() {
+        //doSelectedFolderUrls()
+        //doSelectedFileUrls()
+        //dodirOfFrontWindow()
+        
+        print("OSAxFinderLibTests testSuite() completed")
     }
     
 }
-
-

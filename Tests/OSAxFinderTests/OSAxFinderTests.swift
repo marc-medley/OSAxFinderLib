@@ -40,8 +40,5 @@ final class OSAxFinderTests: XCTestCase {
         return Bundle.main.bundleURL
       #endif
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
+    
 }

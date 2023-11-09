@@ -13,50 +13,68 @@ final class OSAxFinder
 
 _**Initializers**_
 
-* `init(arguments: [String])`
+- `init(arguments: [String])`
 
     Supports library use by a command line tool
 
 _**Command Line Tool Support**_
 
-* `func run() throws`
+- `func run() throws`
 
     Supports library use by a command line tool
 
 _**Instance Methods**_
+ 
+_Enclosing Directory_
 
-_Focused Directory_
-
-* `func directoryFirstSelectedFile() -> URL?`
+- `func dirOfFirstSelectedFile() -> URL?`
 
     Fetch the URL of the first selected file
 
-* `func directoryFrontWindow() -> URL?`
+- `func dirOfFrontWindow() -> URL?`
 
     Fetch the URL of the front Finder window. Returns nil if no window is open.
 
 _General Selections_
 
-* `func selectedFileUrls(extensions: [String]) -> [URL]`
+- `func selectedFileUrls(extensions: [String]) -> [URL]`
 
     Fetch the URL of the selected files and folders which have one of the specified extensions. The extensions are provide without a . dot. For example: ["jpg", "png"]
 
-* `func selectedFolderUrls() -> [URL]`
+- `func selectedFolderUrls(suffixes: [String], withAliasToDir: Bool, onlyValid: Bool) -> [URL]`
 
-* `func selectedUrls() -> [URL]`
-* `func selectedUrls(extensions: [String]) -> (dirs: [URL], files: [URL])`
+- `func selectedUrls(endings: [String]) -> (dirs: [URL], files: [URL])`
 
     Fetch the URL of the selected files and folders which have one of the specified extensions. The extensions are provide without a . dot. For example: `["jpg", "png"]`
 
+- `func selectedUrls() -> [URL]`
+
+
 _Specialized Selections_
 
-* `func selectedHtml() -> [URL]`
-* `func selectedImages() -> [URL]`
-* `func selectedMarkdown() -> [URL]`
-* `func selectedPdf() -> [URL]`
-* `func selectedPdfSorted() -> [URL]`
+- `func selectedHtml() -> [URL]`
+- `func selectedImages() -> [URL]`
+- `func selectedMarkdown() -> [URL]`
+- `func selectedPdf() -> [URL]`
+- `func selectedPdfSorted() -> [URL]`
 
+_Workflow Methods_
 
+- `func selectedItemsJson(printStdio: Bool = false) -> Data?`
+    - Step 1. Fetch all selected items in JSON format
+    - Returns: all selected items
+
+- `func selectedItemsList() -> [OSAxFinderItem]`
+    - Step 2. All selected items as `OSAxFinderItem`
+
+- `func selectedItemsUrls(
+        files: Bool, 
+        folders: Bool, 
+        aliases: Bool = false, 
+        links: Bool = false, 
+        validOnly: Bool = true
+    ) -> [URL]`
+    - Step 3. Selected and filtered URL array.
 
 ## Resources
 
